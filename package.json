@@ -1,5 +1,5 @@
 {
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "dev": "tsc && nodemon src/index.ts",
     "prod": "tsc && nodemon dist/index.js",
