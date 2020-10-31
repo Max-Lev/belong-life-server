@@ -34,7 +34,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.albumsRouter = void 0;
 // "use strict";
 const express_1 = __importDefault(require("express"));
-const axios_1 = __importDefault(require("axios"));
 const albumsRouter = express_1.default.Router();
 exports.albumsRouter = albumsRouter;
 const albums = __importStar(require("../db/albums.json"));
@@ -48,51 +47,17 @@ const token = `Bearer BQC66SvQ7u4TjJUuTnXzUKUNmc4VqFVjFKMRc-MdoILAvc4jOEOYR_ACUI
 // const loginUrl = `
 // https://accounts.spotify.com/authorize?client_id=9a4a7443288d4a55b2de40bc7a57b838&response_type=code&scope=user-read-private%20user-read-email&state=34fFs29kd09
 // `
-albumsRouter.get('/login', (req, res) => {
+albumsRouter.get('/', (req, res) => {
     getAlbums().then(a => {
-        // res.status(200);
+        res.status(200);
         res.send(a);
     });
-    // setTimeout(() => {
-    //     res.status(200);
-    //     res.json(albums);
-    // }, 1000);
-});
-albumsRouter.get('/', (req, res) => {
-    axios_1.default.get(url, {
-        headers: {
-            'Authorization': `${token}`
-        }
-    }).then(response => {
-        console.log(response);
-        // res.status(response.status)
-        res.json(response.data);
-    }).catch(err => {
-        console.log(err);
-        res.status(err);
-    });
-    // return getAlbums().
-    // then(data => {
-    // //     console.log(data);
-    // //     res.send(data);
-    // // }).catch(err => {
-    // //     console.log(err)
-    // //     return err;
-    // // });
 });
 const getAlbums = () => __awaiter(void 0, void 0, void 0, function* () {
-    // await setTimeout(() => {
-    //     return albums.albums;
-    // }, 0);
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve(albums.albums);
-        }, 3000);
+        }, 2000);
     });
-    // await axios.get(url, {
-    //     headers: {
-    //         'Authorization': `${token}`
-    //     }
-    // });
 });
 //# sourceMappingURL=get-albums.js.map

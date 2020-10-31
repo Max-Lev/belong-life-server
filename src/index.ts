@@ -1,13 +1,16 @@
 import express from "express";
 const app = express();
-import {albumsRouter} from './api/get-albums';
-
+import { albumsRouter } from './api/get-albums';
+// import * as countries from './api/get-countries';
+import { countries } from './api/get-countries';
 
 const port = 4201 || process.env.PORT;
 
 // albumsRouter();
 
-app.use('/albums',albumsRouter)
+app.use('/albums', albumsRouter)
+
+app.use('/countries', countries);
 
 app.get("/", (req, res) => {
     res.send("Hi 3333!");

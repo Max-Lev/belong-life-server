@@ -6,9 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const app = express_1.default();
 const get_albums_1 = require("./api/get-albums");
+// import * as countries from './api/get-countries';
+const get_countries_1 = require("./api/get-countries");
 const port = 4201 || process.env.PORT;
 // albumsRouter();
 app.use('/albums', get_albums_1.albumsRouter);
+app.use('/countries', get_countries_1.countries);
 app.get("/", (req, res) => {
     res.send("Hi 3333!");
 });
