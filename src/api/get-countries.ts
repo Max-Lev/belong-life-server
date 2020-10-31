@@ -1,9 +1,10 @@
 import express from 'express';
 const router = express.Router();
 import axios, { AxiosResponse } from 'axios';
-import { IBackEndResponse } from 'models/back-end-response.model';
-import { Flags } from 'models/flags.model';
-import { Countries } from 'models/country.model';
+import { Flags } from '../models/flags.model';
+import { Countries } from '../models/countries.model';
+import { CountryFlagModel } from '../models/country.model';
+
 
 const countriesUrl = `https://corona-virus-world-and-india-data.p.rapidapi.com/api`;
 const authUrl = {
@@ -31,7 +32,8 @@ router.get('/', (req, res) => {
 const syncData = () => {
 
     return Promise.all([getFlages(), getCountries()]).then((value: [AxiosResponse<Flags[]>, AxiosResponse<Countries[]>]) => {
-        console.log(value)
+        console.log(value);
+        const countryFlagModel = new CountryFlagModel(value[1].data,value[0].data);
         return value;
     }).catch(err => {
         console.log(err);

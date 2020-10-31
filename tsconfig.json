@@ -12,7 +12,7 @@
     },
     "include": [
        "src/**/*.ts",
-       "src/db/*.json"
+       "src/**/*.png"
     ],
     "exclude": [
        "node_modules"

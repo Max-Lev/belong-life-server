@@ -1,19 +1,25 @@
 import express from "express";
-const app = express();
 import { albumsRouter } from './api/get-albums';
-// import * as countries from './api/get-countries';
 import { countries } from './api/get-countries';
+import path from 'path';
 
 const port = 4201 || process.env.PORT;
 
-// albumsRouter();
+const app = express();
+
+const dir = path.join(__dirname, '/public/flags');
+
+app.use('/assets',express.static(dir));
+
+// app.use(express.static(__dirname + '/public/flags'));
+
 
 app.use('/albums', albumsRouter)
 
 app.use('/countries', countries);
 
 app.get("/", (req, res) => {
-    res.send("Hi 3333!");
+    res.send("Hi!");
 });
 
 app.listen(port, () => {

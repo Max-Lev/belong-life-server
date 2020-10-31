@@ -17,44 +17,35 @@ const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 exports.countries = router;
 const axios_1 = __importDefault(require("axios"));
+const country_model_1 = require("../models/country.model");
 const countriesUrl = `https://corona-virus-world-and-india-data.p.rapidapi.com/api`;
 const authUrl = {
     'x-rapidapi-key': '0a8b8e412bmshf8d89fcf8cd282cp17368fjsn6d7a84ac0ff0'
 };
 const flagsUrl = `https://cdn.jsdelivr.net/npm/world_countries_lists@latest/data/en/countries.json`;
 router.get('/', (req, res) => {
-    // getCountries();
-    const data = syncData().then(data$ => {
+    syncData().then((data$) => {
+        res.status(200);
         res.send(data$);
+    }).catch(err => {
+        res.status(err.status);
+        res.send(err);
     });
-    // data;
-    // res.send(data)
 });
 const syncData = () => {
-    // const _getCountries = 
-    // await getCountries().then(v=>v);
-    // // const _getFlages =  
-    // await getFlages().then(v=>v);
-    return Promise.all([getFlages(), getCountries()]
-    //     .map(d$ => {
-    //         console.log(d$)
-    //         return d$;
-    //     })
-    ).then(d => {
-        console.log(d);
-        return d;
+    return Promise.all([getFlages(), getCountries()]).then((value) => {
+        console.log(value);
+        const countryFlagModel = new country_model_1.CountryFlagModel(value[1].data, value[0].data);
+        return value;
+    }).catch(err => {
+        console.log(err);
+        return err;
     });
 };
 const getCountries = () => __awaiter(void 0, void 0, void 0, function* () {
     return yield axios_1.default.get(countriesUrl, { headers: Object.assign({}, authUrl) });
-    // .then((countriesResponse) => {
-    //     return countriesResponse.data
-    // });
 });
 const getFlages = () => __awaiter(void 0, void 0, void 0, function* () {
     return yield axios_1.default.get(flagsUrl);
-    // .then((flagsResponse) => {
-    //     return flagsResponse.data;
-    // });
 });
 //# sourceMappingURL=get-countries.js.map
